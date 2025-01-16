@@ -14,7 +14,7 @@ def pytest_addoption(parser):
 @pytest.fixture()
 def browser(request):
     browser_name = request.config.getoption("browser")
-    headless = request.config.getoption("headless") # True - False
+    headless = request.config.getoption("headless")  # True - False
 
     if browser_name in ["chrome", "ch"]:
         options = ChromeOptions()
@@ -27,7 +27,9 @@ def browser(request):
             options.add_argument("--headless")
         driver = webdriver.Firefox(options=options)
     elif browser_name in ["yandex", "ya"]:
-        service = ChromiumService(executable_path="/home/mikhail/Downloads/drivers/yandexdriver")
+        service = ChromiumService(
+            executable_path="/home/mikhail/Downloads/drivers/yandexdriver"
+        )
         options = ChromeOptions()
         if headless:
             options.add_argument("--headless=new")
@@ -35,7 +37,7 @@ def browser(request):
         driver = webdriver.Chrome(service=service, options=options)
     elif browser_name in ["safari", "sf"]:
         driver = webdriver.Safari()
-    
+
     driver.maximize_window()
 
     yield driver
